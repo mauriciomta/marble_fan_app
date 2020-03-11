@@ -1,5 +1,6 @@
 .dart_tool/
 images/links.txt
+.packages
 
 # Built application files
 *.apk
