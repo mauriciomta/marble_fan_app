@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'backdrop.dart';
-
-const Duration _kFrontLayerSwitchDuration = Duration(milliseconds: 300);
+import 'team_pick.dart';
 
 void main() => runApp(MarbleFanApp());
 
@@ -45,7 +43,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Hazers'),
+        title: Text('Choose your favorite team'),
         leading: IconButton(
           icon: AnimatedIcon(
             icon: AnimatedIcons.close_menu,
@@ -79,7 +77,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       child: Stack(
         children: [
           Center(
-            child: Text('base'),
+            child: TeamPick(),
           ),
           PositionedTransition(
             rect: animation,
@@ -93,10 +91,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 children: [
                   Container(
                     height: _PANEL_HEADER_HEIGHT,
-                    child: Center(child: Text('panel')),
-                  ),
-                  Expanded(
-                    child: Center(child: Text('content')),
+                    // child: Center(child: Text('panel')),
                   ),
                 ],
               ),

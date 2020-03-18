@@ -128,7 +128,7 @@ List<TeamModel> teams = [
   ),
   TeamModel(
     name: 'Team Momo',
-    logo: 'TM',
+    logo: 'MOM',
   ),
   TeamModel(
     name: 'Team Plasma',
