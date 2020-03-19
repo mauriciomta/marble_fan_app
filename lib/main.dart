@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'team_pick.dart';
+import 'models/team_model.dart';
 
 void main() => runApp(MarbleFanApp());
 
@@ -21,6 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  TeamModel choosenTeam = null;
 
   @override
   void initState() {
@@ -43,7 +45,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Choose your favorite team'),
+        title: this.choosenTeam == null
+          ? Text('Choose your favorite team')
+          : Text(this.choosenTeam.name),
         leading: IconButton(
           icon: AnimatedIcon(
             icon: AnimatedIcons.close_menu,
@@ -77,7 +81,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       child: Stack(
         children: [
           Center(
-            child: TeamPick(),
+            child: this.choosenTeam == null
+              ? TeamPick()
+              : Text('Infos about your team'),
           ),
           PositionedTransition(
             rect: animation,
