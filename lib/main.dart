@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  TeamModel choosenTeam = null;
+  TeamModel choosenTeam;
   int _currentPanel = 0;
   final List<Widget> _panels = [
     Expanded(child: Center(child: Text('panel 1'))),
@@ -108,8 +108,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         children: [
           Center(
             child: this.choosenTeam == null
-              ? TeamPick()
-              : Text('Infos about your team'),
+              ? TeamPick(notifyParent: refresh)
+              : Column(
+                children: [
+                  Text('Infos about your team'),
+                  MaterialButton(
+                    textColor: Colors.white,
+                    padding: EdgeInsets.all(16.0),
+                    splashColor: Colors.white,
+                    onPressed: () {
+                      setState(() {
+                        choosenTeam = null;
+                      });
+                    },
+                    child: Text('Change team', style: TextStyle(fontSize: 20.0))
+                  ),
+                ],
+              ),
           ),
           PositionedTransition(
             rect: animation,
@@ -151,6 +166,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void _onTabTapped(int index) {
     setState(() {
       _currentPanel = index;
+    });
+  }
+
+  void refresh(int teamID) {
+    setState(() {
+      choosenTeam = teams[teamID];
     });
   }
  }

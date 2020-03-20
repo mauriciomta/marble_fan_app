@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'models/team_model.dart';
 
+int selectedTeamID;
+
 class TeamPick extends StatelessWidget {
+  final Function(int) notifyParent;
+  TeamPick({Key key, @required this.notifyParent}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,7 +47,7 @@ class TeamPick extends StatelessWidget {
                 side: BorderSide(color: Colors.white, width: 2.0)
               ),
               onPressed: () {
-                // TODO: pick team
+                this.notifyParent(selectedTeamID);
               },
               child: Text('Pick team', style: TextStyle(fontSize: 20.0))
             ),
@@ -87,7 +92,10 @@ class _TeamsCarrousselState extends State<TeamsCarroussel> {
           child: PageView.builder(
             itemCount: teams.length,
             controller: controller,
-            onPageChanged: (int index) => setState(() => _teamID = index),
+            onPageChanged: (int index) => setState(() {
+              _teamID = index;
+              selectedTeamID = index;
+            }),
             itemBuilder: (_, i) {
               return Transform.scale(
                 scale: i == _teamID ? 1 : 0.7,
