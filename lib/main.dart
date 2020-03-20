@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marble_fan_app/teams.dart';
 import 'team_pick.dart';
 import 'models/team_model.dart';
 
@@ -23,6 +24,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   TeamModel choosenTeam = null;
+  int _currentPanel = 0;
+  final List<Widget> _panels = [
+    Expanded(child: Center(child: Text('panel 1'))),
+    Teams(),
+    Expanded(child: Center(child: Text('panel 3'))),
+  ];
 
   @override
   void initState() {
@@ -60,6 +67,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
       body: LayoutBuilder(
         builder: _buildStack,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentPanel,
+        onTap: _onTabTapped,
+        elevation: 0.0,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.style),
+            title: Text('Teams'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.radio),
+            title: Text('Events'),
+          ),
+        ],
       ),
     );
   }
@@ -99,6 +125,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     height: _PANEL_HEADER_HEIGHT,
                     // child: Center(child: Text('panel')),
                   ),
+                  _panels[_currentPanel],
                 ],
               ),
             ),
@@ -120,4 +147,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       curve: Curves.linear,
     ));
   }
-}
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentPanel = index;
+    });
+  }
+ }
